@@ -2,6 +2,7 @@ require './models/Post'
 
 class App < Roda
   plugin :json
+  plugin :json_parser
   plugin :all_verbs
 
   route do |r|
@@ -10,14 +11,16 @@ class App < Roda
         Post.all
       end
 
-      # r.is String do |id|
-      #   r.get do
-      #     post = Post.find(id)
-      #     post || r.halt(404)
-      #   end
+      r.post do
+        # Handle POST /posts
+        post = Post.new(title: r.params["title"], content: r.params["content"])
+        post.save
+        post
+      end
 
-      #   r.post do
-      #     # Handle POST /posts/$ID
+      r.is String do |id|
+      #   r.get do
+      #     # Handle GET /posts/$ID
       #   end
 
       #   r.put do
@@ -31,7 +34,7 @@ class App < Roda
       #   r.delete do
       #     # Handle DELETE /posts/$ID
       #   end
-      # end
+      end
     end
   end
 end
