@@ -2,9 +2,7 @@ development:
   clients:
     default:
       database: <%= ENV["MONGO_DB"] %>
-      # database: ruby_roda
       hosts:
         - <%= ENV["MONGO_HOST"] %>:<%= ENV["MONGO_PORT"] %>
-        # - localhost:27017
       options:
         server_selection_timeout: 1

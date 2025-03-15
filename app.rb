@@ -6,16 +6,16 @@ class App < Roda
   plugin :all_verbs
 
   route do |r|
-    r.on "posts" do
+    r.on 'posts' do
       r.get do
         Post.all
       end
 
       r.post do
         # Handle POST /posts
-        post = Post.new(title: r.params["title"], content: r.params["content"])
+        post = Post.new(title: r.params['title'], content: r.params['content'])
         post.save
-        post
+        { message: 'Post Created successfully', data: { post: post } }
       end
 
       r.is String do |id|
