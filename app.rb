@@ -9,22 +9,30 @@ class App < Roda
     r.on 'posts' do
       r.is String do |id|
         r.get do
-          # Handle GET /posts/$ID
           post = Post.find(id)
-          { post: post }
+          { message: 'Post Created successfully', data: { post: post } }
         end
 
-      #   r.put do
-      #     # Handle PUT /posts/$ID
-      #   end
+        r.put do
+          # Handle PUT /posts/$ID
+          post = Post.find(id)
+          post.update(title: r.params['title'], content: r.params['content'])
+          { message: 'Post Updated successfully', data: { post: post } }
+        end
 
-      #   r.patch do
-      #     # Handle PATCH /posts/$ID
-      #   end
+        r.patch do
+          # Handle PATCH /posts/$ID
+          post = Post.find(id)
+          post.update(title: r.params['title'], content: r.params['content'])
+          { message: 'Post Updated successfully', data: { post: post } }
+        end
 
-      #   r.delete do
-      #     # Handle DELETE /posts/$ID
-      #   end
+        r.delete do
+          # Handle DELETE /posts/$ID
+          post = Post.find(id)
+          post.destroy
+          { message: 'Post Deleted successfully' }
+        end
       end
 
       r.get do
