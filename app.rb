@@ -10,7 +10,7 @@ class App < Roda
       r.is String do |id|
         r.get do
           post = Post.find(id)
-          { message: 'Post Created successfully', data: { post: post } }
+          { data: { post: post } }
         end
 
         r.put do
